@@ -80,32 +80,45 @@
  \vspace{-1em}\begin{center}
   \includegraphics[width=\linewidth]{diagram-files3.pdf}
  \end{center}
- \small\texttt{%
-  {\color{holoonblack}\#} holo apply /etc/sudoers\\
-  ~\\
-  Working on \textbf{/etc/sudoers}\\
-  ~~store at /var/lib/holo/base/etc/sudoers\\
-  ~~~~~apply /usr/share/holo/repo/00-base/etc/sudoers
- }
+ \begin{columns}\column{\dimexpr\paperwidth-15pt}
+  \small\texttt{%
+   {\color{holoonblack}\#} holo apply /etc/sudoers\\
+   ~\\
+   Working on \textbf{/etc/sudoers}\\
+   ~~store at /var/lib/holo/files/base/etc/sudoers\\
+   ~~~~~apply /usr/share/holo/files/50-config/etc/sudoers
+  }
+ \end{columns}
 \end{frame}
 
 \begin{frame}[plain,t]{Modify default configurations}
  \vspace{-1em}\begin{center}
   \includegraphics[width=\linewidth]{diagram-files4.pdf}
  \end{center}
+ \begin{columns}\column{\dimexpr\paperwidth-15pt}
+  \small\texttt{%
+   {\color{holoonblack}\#} holo apply /etc/sudoers\\
+   ~\\
+   Working on \textbf{/etc/sudoers}\\
+   ~~store at /var/lib/holo/files/base/etc/sudoers\\
+   ~~passthru~/usr/share/holo/files/50-config/etc/sudoers.holoscript
+  }
+ \end{columns}
 \end{frame}
 
 \begin{frame}[plain,t]{Provision user accounts}
  \vspace{-1em}\begin{center}
   \includegraphics[width=\linewidth]{diagram-users.pdf}
  \end{center}
- \small\texttt{%
-  {\color{holoonblack}\#} holo apply user:stefan\\
-  ~\\
-  Working on \textbf{user:stefan}\\
-  ~~found in /usr/share/holo/users-groups/00-base.toml\\
-  ~~~~~~with login group: users, login shell: /bin/zsh
- }
+ \begin{columns}\column{\dimexpr\paperwidth-15pt}
+  \small\texttt{%
+   {\color{holoonblack}\#} holo apply user:stefan\phantom/\\
+   ~\\
+   Working on \textbf{user:stefan}\\
+   ~~found in /usr/share/holo/users-groups/50-example.toml\\
+   ~~~~~~with login group: users, login shell: /bin/zsh
+  }
+ \end{columns}
 \end{frame}
 
 \begin{frame}[plain,c]{Detect manual changes}
