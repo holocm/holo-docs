@@ -1,0 +1,141 @@
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Montserrat-Regular'), url(font/montserrat-400.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Montserrat-Bold'), url(font/montserrat-700.ttf) format('truetype');
+}
+
+html {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+body {
+    background: white;
+    color: black;
+    margin: 0;
+    padding: 0;
+}
+
+.fixed-width {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 0.5rem;
+}
+
+/*******************************************************************************
+ * pitch (only on index.html)
+ */
+
+#pitch {
+    height: 100vh;
+    line-height: 100vh;
+    font-size: 1.5rem;
+    font-family: 'Montserrat', sans-serif;
+    background: black;
+    color: #00C7FF;
+    text-align: center;
+}
+#pitch-content {
+    padding: 5rem 0;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+}
+
+#pitch-content table {
+    width: 100%;
+}
+#pitch-logo {
+    width: 25%;
+}
+#pitch-logo img {
+    width: 100%;
+}
+#pitch-text p {
+    font-size: 2rem;
+    margin: 0;
+}
+#pitch-text p + p {
+    font-size: 3rem;
+    margin-top: 0.5rem;
+}
+
+#pitch a.button {
+    display: inline-block;
+    border: 0;
+    border-radius: 5px;
+    padding: 0.5rem;
+    margin: 0.5rem;
+    background: #00C7FF;
+    color: black !important;
+    text-decoration: none !important;
+}
+#pitch a.button:hover, #pitch a.button:active, #pitch a.button:focus {
+    background: white;
+}
+
+/* responsive elements: we usually just put a large-scale logo in the center
+ * and remove the #header-icon, but don't do that on small screens */
+@media (min-width: 980px) {
+    #pitch #header-icon {
+        display: none;
+    }
+}
+@media (max-width: 979px) {
+    #pitch-logo {
+        width: 0%;
+        display: none;
+    }
+}
+/* on small screens, dial down the fontsizes a bit */
+@media (max-height: 40rem) and (max-width: 700px) {
+    #pitch          { font-size: 1rem }
+    #pitch-text p   { font-size: 1.5rem }
+    #pitch-text p+p { font-size: 2rem }
+}
+
+/*******************************************************************************
+ * header (with logo and Twitter/Github links)
+ */
+
+header {
+    background: black;
+    color: #00C7FF;
+    height: 64px;
+    line-height: 64px;
+}
+
+header .fixed-width {
+    padding: 0;
+    height: 0;
+    overflow: visible;
+}
+
+#header-buttons {
+    text-align: right;
+}
+
+#header-buttons a {
+    font-size: 40px;
+    color: inherit !important;
+    text-decoration: none !important;
+    margin: 0 0.25rem;
+}
+
+#header-buttons a:hover, #header-buttons a:active, #header-buttons a:focus {
+    color: white !important;
+}
+
+/*******************************************************************************
+ * navigation
+ */
+
