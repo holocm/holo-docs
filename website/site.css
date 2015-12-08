@@ -15,7 +15,7 @@
 html {
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
+    font-family: Montserrat, sans-serif;
 }
 
 body {
@@ -29,6 +29,15 @@ body {
     max-width: 980px;
     margin: 0 auto;
     padding: 0 0.5rem;
+    box-sizing: border-box;
+}
+
+.clearfix {
+    clear: both;
+}
+.clearfix::after, .clearfix::before {
+    display: table;
+    content: "";
 }
 
 /*******************************************************************************
@@ -39,7 +48,6 @@ body {
     height: 100vh;
     line-height: 100vh;
     font-size: 1.5rem;
-    font-family: 'Montserrat', sans-serif;
     background: black;
     color: #00C7FF;
     text-align: center;
@@ -107,14 +115,14 @@ body {
  * header (with logo and Twitter/Github links)
  */
 
-header {
+header#primary {
     background: black;
     color: #00C7FF;
     height: 64px;
     line-height: 64px;
 }
 
-header .fixed-width {
+header#primary .fixed-width {
     padding: 0;
     height: 0;
     overflow: visible;
@@ -135,7 +143,94 @@ header .fixed-width {
     color: white !important;
 }
 
+header#secondary {
+    background: #222;
+    color: #00C7FF;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
 /*******************************************************************************
- * navigation
+ * content
  */
 
+#content-container a, span.highlight {
+    /* the blue highlight needs to be a bit darker to look the same against a
+     * light background */
+    color: #00A7D0 !important;
+    text-decoration: none !important;
+}
+
+#content-container a:hover, #content-container a:active, #content-container a:focus {
+    text-decoration: underline !important;
+}
+
+h1 {
+    font-size: 1.5rem;
+}
+
+h2 {
+    font-size: 1.2rem;
+}
+
+pre {
+    max-width: 100%;
+    overflow-x: auto;
+    padding-left: 2rem;
+}
+pre > code {
+    display: block;
+}
+
+pre, tt, code {
+    font-size: 1rem;
+}
+
+/* pod2html wraps the content of <li> in <p> for some reason */
+section li > p {
+    margin: 0;
+    padding: 0;
+}
+
+div.standout {
+    background: #EEE;
+    padding: 2rem 0;
+    text-align: center;
+}
+
+div.standout img {
+    width: 100%;
+    max-width: 700px;
+}
+
+/*******************************************************************************
+ * footer
+ */
+
+#content-container {
+    /* ensure that the footer is at the bottom, without being position:fixed */
+    min-height: calc(100vh - 64px - 2.5rem);
+}
+
+footer {
+    text-align: center;
+    margin: 0;
+    background: black;
+    color: white;
+}
+
+footer .fixed-width {
+    height: 2.5rem;
+    line-height: 2.5rem;
+}
+
+footer a {
+    color: #00C7FF !important;
+    text-decoration: none !important;
+}
+
+footer a:hover, footer a:active, footer a:focus {
+    text-decoration: underline !important;
+}
