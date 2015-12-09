@@ -17,66 +17,60 @@
             <a href="https://github.com/holocm" title="Fork on GitHub"><i class="fa fa-github"></i></a>
         </div>
     </header>
-    <!--<header id="secondary">
+    <header id="secondary">
         <div class="fixed-width">
-            Conceptual overview
+          <a href="./overview.html" class="current">Overview</a>
+          &ndash;
+          <a href="./files.html">Provisioning files</a>
         </div>
-    </header>-->
+    </header>
     <div id="content-container">
         <div class="fixed-width clearfix">
-            <h1>The five-minute overview</h1>
+            <h1>What is Holo?</h1>
             <p>Conventional configuration management tools struggle to exert authority over the system configuration because there is already one entity that claims the same authority: the system package manager. Holo not only cooperates with the package manager, but leverages it wherever possible, adding to it only when its model fails the tasks.</p>
-        </div>
-        <div class="standout"><img src="img/diagram-files1.svg"></div>
-        <div class="fixed-width clearfix">
-            <h1>Configuration packages</h1>
-            <p>On a system managed by Holo, configuration is installed in the form of configuration packages. We like to call these <b>holograms</b> when they configure a single application or an aspect of a system, or <b>holodecks</b> when they contain the whole system configuration. A hologram installs application packages or other holograms by depending on them, and can contain configuration files for these applications. Further entities, like user accounts or passwords, could be configured in a post-install script.</p>
-            <p>However, when you actually use packages to roll out configuration, you will run into certain limitations. For example, when you configure applications using a post-install script that is run by the package manager, you cannot easily verify the configuration at a later point in time. The <tt>holo diff</tt> command is designed to allow exactly that.</p>
-            <p>Another limitation of the package manager becomes apparent when application packages install default configurations. When a hologram tries to install the custom configuration at the same path, a conflict occurs and the hologram cannot be installed:</p>
-        </div>
-        <div class="standout"><img src="img/diagram-files2.svg"></div>
-        <div class="fixed-width clearfix">
-            <h1>Resolving filesystem conflicts</h1>
-            <p>A package manager will not judge the precedence of packages. It cannot know that the configuration file in the hologram takes precedence over the alternative version of that file contained in the application package. Holo knows how to resolve this conflict:</p>
-        </div>
-        <div class="standout"><img src="img/diagram-files3.svg"></div>
-        <div class="fixed-width clearfix">
-            <p>To achieve this, the hologram installs its custom configuration file to a separate location at <code>/usr/share/holo/files</code>. Holo then places it in the right path, usually during the post-install script of the hologram:</p>
-            <pre><code># holo apply /etc/sudoers
+            <h2>Slim installation</h2>
+            <p>Holo consists of small static executables and shell scripts and does not require any run-time libraries aside from a libc:</p>
+            <pre><code>$ ls -l /usr/bin/holo* /usr/lib/holo/holo*
+-rwxr-xr-x 1 root root 2364792 Dec  4 22:31 /usr/bin/holo
+-rwxr-xr-x 1 root root    4550 Dec  4 22:31 /usr/bin/holo-test
+-rwxr-xr-x 1 root root 2417720 Dec  4 22:31 /usr/lib/holo/holo-files</code></pre>
+            <p>Holo itself can only provision configuration files, but it can be extended with plugins to provision other types of things. For example, the <a href="https://github.com/holocm/holo-users-groups">holo-users-groups</a> plugin can be installed to provision UNIX user accounts and groups.</p>
+            <h2>Integrate with other configuration management tools</h2>
+            <p>Holo will only provision those entities that you explicitly tell it to provision. You can therefore easily deploy Holo for specific tasks or on existing systems, even if they are managed by other configuration management tools already.</p>
+            <p>Configuration for Holo comes in the form of system packages, so a possible integration method is to use the existing configuration management tool to install configuraton packages for Holo.</p>
+            <h2>Simplify the package building process</h2>
+            <p>Holo provides an additional tool, <b>holo-build</b>, that compiles configuration packages for different distributions from a straight-forward description language:</p>
+            <pre><code>$ cat example.pkg.toml
 
-Working on <b>/etc/sudoers</b>
-  store at /var/lib/holo/files/base/etc/sudoers
-     apply /usr/share/holo/files/50-config/etc/sudoers</code></pre>
-            <h1>Modifying existing configurations</h1>
-            <p>This basic pattern (install a file into <tt>/usr/share/holo</tt> and <tt>holo apply</tt> it) can be repeated in a multitude of ways. A basic variation is to install a script instead of a file, as shown below:</p>
-        </div>
-        <div class="standout"><img src="img/diagram-files4.svg"></div>
-        <div class="fixed-width clearfix">
-            <p>During the first <tt>holo apply</tt>, Holo will store the default configuration as the <b>target base</b> for this target file, and pass its contents through the script from the hologram to produce the target configuration file:
-            <pre><code># holo apply /etc/sudoers
+  [package]
+  name    = "example"
+  version = "1.2"
 
-Working on <b>/etc/sudoers</b>
-  store at /var/lib/holo/files/base/etc/sudoers
-  <span class="highlight">passthru</span> /usr/share/holo/files/50-config/etc/sudoers<span class="highlight">.holoscript</span></code></pre>
-            <p>This pattern can be extended very naturally to allow multiple holograms to work on the same target file. The <a href="./manual/holo-files.html">manpage for the holo-files plugin</a> has all the details.</p>
-            <h1>Extend Holo with plugins</h1>
-            <p>As we saw above, the <b>holo-files</b> plugin included in Holo can be used to provision configuration files. Other types of plugins exist to provision different kinds of things. For example, the <a href="https://github.com/holocm/holo-users-groups">holo-users-groups plugin</a> creates UNIX user accounts and groups:</p>
-        </div>
-        <div class="standout"><img src="img/diagram-users.svg"></div>
-        <div class="fixed-width clearfix">
-            <pre><code>$ cat /usr/share/holo/users-groups/50-example.toml
+  [[file]]
+  path    = "/etc/profile.d/example.sh"
+  mode    = "0755"
+  content = """
+      PATH="/opt/example/bin:$PATH"
+      LD_LIBRARY_PATH="/opt/example/lib:$LD_LIBRARY_PATH"
+  """
 
-[[user]]
-name  = "stefan"
-group = "users"
-shell = "/bin/zsh"
-
-# holo apply user:stefan
-
-Working on <b>user:stefan</b>
-  found in /usr/share/holo/users-groups/50-example.toml
-      with login group: users, login shell: /bin/zsh</code></pre>
-            <p>TODO: more aspect-oriented explanations ("Holo cooperates with other CMs", "Holo has a minimal footprint", etc.) and an explanation of holo-build</p>
+$ holo-build --debian &lt; example.pkg.toml
+$ holo-build --pacman &lt; example.pkg.toml
+$ ls
+example_1.2-1_any.deb  example-1.2-1-any.pkg.tar.xz  example.pkg.toml</code></pre>
+            <h1>Installation</h1>
+            <p>Whenever possible, install Holo as a package.</p>
+            <ul>
+                <li>Arch Linux users can use the <a href="https://aur.archlinux.org/packages/?K=holo&SeB=n">AUR packages</a>.</li>
+                <li>If you have packaged Holo for your distribution, please <a href="https://github.com/holocm/holo-docs/issues/new">send me a link</a> that I can add to this list.</li>
+            </ul>
+            <p>To install from source, clone the corresponding Git repos and have a look at the <tt>README.md</tt>:</p>
+            <ul>
+                <li>the core execuable: <a href="https://github.com/holocm/holo">holo</a></li>
+                <li>optional plugins for Holo: <a href="https://github.com/holocm/holo-users-groups">holo-users-groups</a> and <a href="https://github.com/holocm/holo-run-scripts">holo-run-scripts</a></li>
+                <li>the package building tool: <a href="https://github.com/holocm/holo-build">holo-build</a></li>
+            </ul>
+            <p>All these programs come with manpages that explain their exact operation in more detail.</p>
         </div>
     </div>
     <footer>

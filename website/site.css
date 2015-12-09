@@ -136,7 +136,7 @@ header#primary .fixed-width {
     font-size: 40px;
     color: inherit !important;
     text-decoration: none !important;
-    margin: 0 0.25rem;
+    margin-right: 0.5rem;
 }
 
 #header-buttons a:hover, #header-buttons a:active, #header-buttons a:focus {
@@ -148,7 +148,19 @@ header#secondary {
     color: #00C7FF;
     height: 2.5rem;
     line-height: 2.5rem;
-    font-size: 1.5rem;
+    padding: 0 0.5rem;
+}
+
+header#secondary a {
+    color: inherit !important;
+    text-decoration: none !important;
+}
+
+header#secondary a:hover, header#secondary a:active, header#secondary a:focus {
+    color: white !important;
+}
+
+header#secondary a.current {
     font-weight: bold;
 }
 
@@ -211,7 +223,7 @@ div.standout img {
 
 #content-container {
     /* ensure that the footer is at the bottom, without being position:fixed */
-    min-height: calc(100vh - 64px - 2.5rem);
+    min-height: calc(100vh - 64px - 2.5rem - 2.5rem);
 }
 
 footer {
