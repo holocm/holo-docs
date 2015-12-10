@@ -45,34 +45,21 @@ body {
  */
 
 #pitch {
-    height: 100vh;
-    line-height: 100vh;
     font-size: 1.5rem;
     background: black;
     color: #00C7FF;
     text-align: center;
 }
-#pitch-content {
-    padding: 5rem 0;
-    display: inline-block;
-    vertical-align: middle;
-    line-height: normal;
-}
 
-#pitch-content table {
-    width: 100%;
-}
-#pitch-logo {
-    width: 25%;
-}
 #pitch-logo img {
-    width: 100%;
+    height: 400px;
+    max-height: 30vh;
 }
-#pitch-text p {
+#pitch-text-1 {
     font-size: 2rem;
     margin: 0;
 }
-#pitch-text p + p {
+#pitch-text-2 {
     font-size: 3rem;
     margin-top: 0.5rem;
 }
@@ -91,24 +78,11 @@ body {
     background: white;
 }
 
-/* responsive elements: we usually just put a large-scale logo in the center
- * and remove the #header-icon, but don't do that on small screens */
-@media (min-width: 980px) {
-    #pitch #header-icon {
-        display: none;
-    }
-}
-@media (max-width: 979px) {
-    #pitch-logo {
-        width: 0%;
-        display: none;
-    }
-}
 /* on small screens, dial down the fontsizes a bit */
 @media (max-height: 40rem) and (max-width: 700px) {
-    #pitch          { font-size: 1rem }
-    #pitch-text p   { font-size: 1.5rem }
-    #pitch-text p+p { font-size: 2rem }
+    #pitch        { font-size: 1rem }
+    #pitch-text-1 { font-size: 1.5rem }
+    #pitch-text-2 { font-size: 2rem }
 }
 
 /*******************************************************************************
