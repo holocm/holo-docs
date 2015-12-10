@@ -26,14 +26,13 @@
     </header>
     <div id="content-container">
         <div class="fixed-width clearfix">
-            <h1>The five-minute overview</h1>
-            <p>Conventional configuration management tools struggle to exert authority over the system configuration because there is already one entity that claims the same authority: the system package manager. Holo not only cooperates with the package manager, but leverages it wherever possible, adding to it only when its model fails the tasks.</p>
-        </div>
+            <h1>Provisioning files with Holo</h1>
+            <p>This article demonstrates the concepts of Holo using the <b>holo-files</b> plugin that ships with Holo itself.</p>
         <div class="standout"><img src="img/diagram-files1.svg"></div>
         <div class="fixed-width clearfix">
             <h1>Configuration packages</h1>
-            <p>On a system managed by Holo, configuration is installed in the form of configuration packages. We like to call these <b>holograms</b> when they configure a single application or an aspect of a system, or <b>holodecks</b> when they contain the whole system configuration. A hologram installs application packages or other holograms by depending on them, and can contain configuration files for these applications. Further entities, like user accounts or passwords, could be configured in a post-install script.</p>
-            <p>However, when you actually use packages to roll out configuration, you will run into certain limitations. For example, when you configure applications using a post-install script that is run by the package manager, you cannot easily verify the configuration at a later point in time. The <tt>holo diff</tt> command is designed to allow exactly that.</p>
+            <p>On a system managed by Holo, configuration is installed in the form of configuration packages. We like to call these <b>holograms</b> when they configure a single application or an aspect of a system, or <b>holodecks</b> when they contain the whole system configuration. A hologram installs application packages or other holograms by depending on them, and can contain configuration files for these applications.</p>
+            <p>However, when you actually use packages to roll out configuration, you will run into certain limitations. For example, in some package managers, it is not possible (or complicated) to verify or fix the configuration at a later point in time. The <tt>holo diff</tt> and <tt>holo apply --force</tt> commands are designed to allow exactly that.</p>
             <p>Another limitation of the package manager becomes apparent when application packages install default configurations. When a hologram tries to install the custom configuration at the same path, a conflict occurs and the hologram cannot be installed:</p>
         </div>
         <div class="standout"><img src="img/diagram-files2.svg"></div>
@@ -43,7 +42,7 @@
         </div>
         <div class="standout"><img src="img/diagram-files3.svg"></div>
         <div class="fixed-width clearfix">
-            <p>To achieve this, the hologram installs its custom configuration file to a separate location at <code>/usr/share/holo/files</code>. Holo then places it in the right path, usually during the post-install script of the hologram:</p>
+            <p>The hologram installs its custom configuration file to a separate location at <code>/usr/share/holo/files</code>. Holo then places it in the right path, usually during the post-install script of the hologram:</p>
             <pre><code># holo apply /etc/sudoers
 
 Working on <b>/etc/sudoers</b>
@@ -60,25 +59,7 @@ Working on <b>/etc/sudoers</b>
 Working on <b>/etc/sudoers</b>
   store at /var/lib/holo/files/base/etc/sudoers
   <span class="highlight">passthru</span> /usr/share/holo/files/50-config/etc/sudoers<span class="highlight">.holoscript</span></code></pre>
-            <p>This pattern can be extended very naturally to allow multiple holograms to work on the same target file. The <a href="./manual/holo-files.html">manpage for the holo-files plugin</a> has all the details.</p>
-            <h1>Extend Holo with plugins</h1>
-            <p>As we saw above, the <b>holo-files</b> plugin included in Holo can be used to provision configuration files. Other types of plugins exist to provision different kinds of things. For example, the <a href="https://github.com/holocm/holo-users-groups">holo-users-groups plugin</a> creates UNIX user accounts and groups:</p>
-        </div>
-        <div class="standout"><img src="img/diagram-users.svg"></div>
-        <div class="fixed-width clearfix">
-            <pre><code>$ cat /usr/share/holo/users-groups/50-example.toml
-
-[[user]]
-name  = "stefan"
-group = "users"
-shell = "/bin/zsh"
-
-# holo apply user:stefan
-
-Working on <b>user:stefan</b>
-  found in /usr/share/holo/users-groups/50-example.toml
-      with login group: users, login shell: /bin/zsh</code></pre>
-            <p>TODO: more aspect-oriented explanations ("Holo cooperates with other CMs", "Holo has a minimal footprint", etc.) and an explanation of holo-build</p>
+            <p>This pattern can be extended very naturally to allow multiple holograms to work on the same target file. The <a href="https://github.com/holocm/holo/blob/master/doc/holo-files.8.pod">manpage for the holo-files plugin</a> has all the details.</p>
         </div>
     </div>
     <footer>
