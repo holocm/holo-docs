@@ -21,6 +21,8 @@
         <div class="fixed-width">
           <a href="./overview.html" class="current">Overview</a>
           &ndash;
+          <a href="./install.html">Installation</a>
+          &ndash;
           <a href="./files.html">Provisioning files</a>
         </div>
     </header>
@@ -28,6 +30,7 @@
         <div class="fixed-width clearfix">
             <h1>What is Holo?</h1>
             <p>Conventional configuration management tools struggle to exert authority over the system configuration because there is already one entity that claims the same authority: the system package manager. Holo not only cooperates with the package manager, but leverages it wherever possible, adding to it only when its model fails the tasks.</p>
+            <p>For a detailed example of how Holo works in practice, have a look at <a href="./files.html">how it provisions files</a>.</p>
             <h2>Slim installation</h2>
             <p>Holo consists of small static executables and shell scripts and does not require any run-time libraries aside from a libc:</p>
             <pre><code>$ ls -l /usr/bin/holo* /usr/lib/holo/holo*
@@ -39,7 +42,7 @@
             <p>Holo will only provision those entities that you explicitly tell it to provision. You can therefore easily deploy Holo for specific tasks or on existing systems, even if they are managed by other configuration management tools already.</p>
             <p>Configuration for Holo comes in the form of system packages, so a possible integration method is to use the existing configuration management tool to install configuraton packages for Holo.</p>
             <h2>Simplify the package building process</h2>
-            <p>Holo provides an additional tool, <b>holo-build</b>, that compiles configuration packages for different distributions from a straight-forward description language:</p>
+            <p>Holo provides an additional tool, <a href="https://github.com/holocm/holo-build">holo-build</a>, that compiles configuration packages for different distributions from a straight-forward description language:</p>
             <pre><code>$ cat example.pkg.toml
 
   [package]
@@ -58,19 +61,8 @@ $ holo-build --debian &lt; example.pkg.toml
 $ holo-build --pacman &lt; example.pkg.toml
 $ ls
 example_1.2-1_any.deb  example-1.2-1-any.pkg.tar.xz  example.pkg.toml</code></pre>
-            <h1>Installation</h1>
-            <p>Whenever possible, install Holo as a package.</p>
-            <ul>
-                <li>Arch Linux users can use the <a href="https://aur.archlinux.org/packages/?K=holo&SeB=n">AUR packages</a>.</li>
-                <li>If you have packaged Holo for your distribution, please <a href="https://github.com/holocm/holo-docs/issues/new">send me a link</a> that I can add to this list.</li>
-            </ul>
-            <p>To install from source, clone the corresponding Git repos and have a look at the <tt>README.md</tt>:</p>
-            <ul>
-                <li>the core execuable: <a href="https://github.com/holocm/holo">holo</a></li>
-                <li>optional plugins for Holo: <a href="https://github.com/holocm/holo-users-groups">holo-users-groups</a> and <a href="https://github.com/holocm/holo-run-scripts">holo-run-scripts</a></li>
-                <li>the package building tool: <a href="https://github.com/holocm/holo-build">holo-build</a></li>
-            </ul>
-            <p>All these programs come with manpages that explain their exact operation in more detail.</p>
+            <h1>Documentation</h1>
+            <p>All Holo programs and plugins come with manpages that explain their exact operation in detail. Check out the <a href="./install.html">installation instructions</a> for further information.</p>
         </div>
     </div>
     <footer>

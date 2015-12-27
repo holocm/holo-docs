@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Holo - Minimalistic Configuration Management</title>
+    <link rel="stylesheet" type="text/css" href="./site.css">
+    <link rel="stylesheet" type="text/css" href="./font/font-awesome.min.css">
+</head>
+<body>
+    <header id="primary">
+        <div id="header-icon" class="fixed-width">
+            <a href="overview.html"><img src="img/holo-logo.svg" alt="Holo" title="Go to overview"></a>
+        </div>
+        <div id="header-buttons" class="fixed-width">
+            <a href="https://twitter.com/holocm" title="Follow on Twitter"><i class="fa fa-twitter"></i></a>
+            <a href="https://github.com/holocm" title="Fork on GitHub"><i class="fa fa-github"></i></a>
+        </div>
+    </header>
+    <header id="secondary">
+        <div class="fixed-width">
+          <a href="./overview.html">Overview</a>
+          &ndash;
+          <a href="./install.html" class="current">Installation</a>
+          &ndash;
+          <a href="./files.html">Provisioning files</a>
+        </div>
+    </header>
+    <div id="content-container">
+        <div class="fixed-width clearfix">
+            <h1>Install Holo</h1>
+            <p>Whenever possible, install Holo as a package. Look down on this page for a section header with your distribution's name.</p>
+            <h2>From source</h2>
+            <p>Alternatively, install from source by cloning the corresponding Git repos and looking at the <tt>README.md</tt>:</p>
+            <ul>
+                <li>the core execuable: <a href="https://github.com/holocm/holo">holo</a></li>
+                <li>optional plugins for Holo: <a href="https://github.com/holocm/holo-users-groups">holo-users-groups</a> and <a href="https://github.com/holocm/holo-run-scripts">holo-run-scripts</a></li>
+                <li>the package building tool: <a href="https://github.com/holocm/holo-build">holo-build</a></li>
+            </ul>
+            <h1>Arch Linux</h1>
+            <p>Packages are available from the <a href="https://aur.archlinux.org/packages/?K=holo&SeB=n">AUR</a>. If you prefer precompiled packages, you can use our repository (only available for x86_64 at the moment). Add the following to your <tt>/etc/pacman.conf</tt>:
+            <pre><code>[holo]
+Server = https://repo.holocm.org/archlinux/$arch</code></pre>
+            <p>The packages are signed with GPG, so you need to import and trust the signing key:</p>
+            <pre><code>$ sudo pacman-key -r 0xF7A9C9DC4631BD1A
+$ sudo pacman-key -f 0xF7A9C9DC4631BD1A
+#     check the key fingerprint before continuing, it should be:
+#     2A53 49F6 B4D7 305A 85DE  D8D4 F7A9 C9DC 4631 BD1A
+$ sudo pacman-key --lsign-key 0xF7A9C9DC4631BD1A</code></pre>
+            <p>To get a list of all packages in this repo, do:</p>
+            <pre><code>$ sudo pacman -Syl holo</code></pre>
+        </div>
+    </div>
+    <footer>
+        <div class="fixed-width clearfix">
+            This website is made with <a href="http://montserrat.zkysky.com.ar/en">Montserrat</a>
+            and <a href="http://fontawesome.io">FontAwesome</a>
+            and <a href="https://github.com/holocm/holo-docs/tree/master/website">maintained at GitHub</a>.
+        </div>
+    </footer>
+</body>
+</html>
