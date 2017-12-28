@@ -7,3 +7,5 @@
 *.snm
 *.toc
 
+# final output
+ad.*
