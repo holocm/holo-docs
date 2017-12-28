@@ -1,0 +1,31 @@
+%% COMPILE WITH XeLaTeX
+\documentclass[aspectratio=169]{beamer}
+
+\usepackage{fontspec,calc}
+\setmainfont[Mapping=tex-text]{Montserrat}
+\let\sfdefault\rmdefault
+
+\mode<presentation>
+
+\usetheme{default}
+\beamertemplatenavigationsymbolsempty
+\hypersetup{pdfpagemode=UseNone} % don't show bookmarks on initial view
+
+\definecolor{holoonblack}{RGB}{0,199,255}
+
+\setbeamercolor{titlelike}{fg=white,bg=black}
+\setbeamercolor{normal text}{fg=white,bg=black}
+\setbeamercolor{local structure}{fg=holoonblack}
+
+\begin{document}
+
+\begin{frame}[plain,c]
+ \centering
+ \includegraphics[width=\textwidth]{../32c3-lightning-talk/holo-logo.pdf}
+ \\[1em]
+ \LARGE Minimalistic configuration management
+ \\[0.5em]
+ \color{holoonblack} http://www.holocm.org
+\end{frame}
+
+\end{document}
